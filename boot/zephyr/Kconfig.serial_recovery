@@ -111,6 +111,19 @@ config BOOT_MGMT_ECHO
 	help
 	  if enabled, support for the mcumgr echo command is being added.
 
+config BOOT_MGMT_MCUMGR_PARAMS
+	bool "SMP server buffer size"
+	depends on BOOT_MAX_LINE_INPUT_LEN = 128
+	help
+	  If enabled, support for the mcumgr OS group "MCUmgr parameters"
+	  command (command ID 6) is added, mirroring the command provided by
+	  Zephyr's SMP server. It reports the SMP transport buffer size
+	  (BOOT_SERIAL_MAX_RECEIVE_SIZE) and buffer count so that SMP clients
+	  can negotiate optimal serial fragmentation. The parameters do not
+	  carry the transport line length, so this option requires
+	  BOOT_MAX_LINE_INPUT_LEN to remain at the standard 128-byte fragment
+	  size. buf_count will always be 1.
+
 menuconfig ENABLE_MGMT_PERUSER
 	bool "System specific mcumgr commands"
 	help
